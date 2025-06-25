@@ -22,7 +22,7 @@
             overflow-x: hidden;
             line-height: 1.6;
             min-height: 100vh;
-            padding-bottom: 110px; /* Место для нижнего меню */
+            padding-bottom: 110px;
         }
         .wave {
             background: rgba(255, 255, 255, 0.1);
@@ -136,28 +136,22 @@
         .video-item::before {
             content: '';
             display: block;
-            padding-top: 177.77%; /* Соотношение сторон 9:16 */
+            padding-top: 177.77%;
         }
-        .video-item a {
+        .video-preview, .video-container {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-            text-decoration: none;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
         }
-        .video-item img {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .video-preview img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        .video-item:hover img {
-            transform: scale(1.05);
+            pointer-events: none;
         }
         .play-overlay {
             position: absolute;
@@ -173,14 +167,21 @@
             justify-content: center;
             opacity: 0.8;
             transition: opacity 0.3s ease;
+            pointer-events: none;
         }
-        .video-item:hover .play-overlay {
+        .video-preview:hover .play-overlay {
             opacity: 1;
         }
         .play-overlay svg {
             width: 30px;
             height: 30px;
             fill: #ffffff;
+        }
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: block;
         }
         .portfolio-cta {
             text-align: center;
@@ -238,33 +239,16 @@
             margin-top: 5px;
         }
         @media (max-width: 768px) {
-            .nav-container {
-                padding: 0 20px;
-            }
-            .nav-menu {
-                display: none;
-            }
-            .nav-logo {
-                font-size: 1.5rem;
-            }
-            .section-title {
-                font-size: 2.5rem;
-            }
-            .video-grid {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                gap: 20px;
-            }
-            .bottom-nav-item {
-                margin: 0 20px;
-            }
+            .nav-container { padding: 0 20px; }
+            .nav-menu { display: none; }
+            .nav-logo { font-size: 1.5rem; }
+            .section-title { font-size: 2.5rem; }
+            .video-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+            .bottom-nav-item { margin: 0 20px; }
         }
         @media (max-width: 480px) {
-            .section-title {
-                font-size: 2rem;
-            }
-            .bottom-nav-item {
-                margin: 0 15px;
-            }
+            .section-title { font-size: 2rem; }
+            .bottom-nav-item { margin: 0 15px; }
         }
     </style>
 </head>
@@ -292,59 +276,59 @@
     <div class="container">
         <h2 class="section-title">VIDEOS</h2>
         <div class="video-grid">
-            <!-- Пример видео 1 -->
+            <!-- Видео 1 -->
             <div class="video-item">
-                <a href="videos/video1.mp4" target="_blank">
+                <div class="video-preview" onclick="playVideo(this, 'videos/video1.mp4')">
                     <img src="images/preview_video1.jpg" alt="Превью видео 1">
                     <div class="play-overlay">
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                </a>
+                </div>
             </div>
-            <!-- Пример видео 2 -->
+            <!-- Видео 2 -->
             <div class="video-item">
-                <a href="videos/video2.mp4" target="_blank">
+                <div class="video-preview" onclick="playVideo(this, 'videos/video2.mp4')">
                     <img src="images/preview_video2.jpg" alt="Превью видео 2">
                     <div class="play-overlay">
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                </a>
+                </div>
             </div>
-            <!-- Пример видео 3 -->
+            <!-- Видео 3 -->
             <div class="video-item">
-                <a href="videos/video3.mp4" target="_blank">
+                <div class="video-preview" onclick="playVideo(this, 'videos/video3.mp4')">
                     <img src="images/preview_video3.jpg" alt="Превью видео 3">
                     <div class="play-overlay">
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                </a>
+                </div>
             </div>
-            <!-- Пример видео 4 -->
+            <!-- Видео 4 -->
             <div class="video-item">
-                <a href="videos/video4.mp4" target="_blank">
+                <div class="video-preview" onclick="playVideo(this, 'videos/video4.mp4')">
                     <img src="images/preview_video4.jpg" alt="Превью видео 4">
                     <div class="play-overlay">
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                </a>
+                </div>
             </div>
-            <!-- Пример видео 5 -->
+            <!-- Видео 5 -->
             <div class="video-item">
-                <a href="videos/video5.mp4" target="_blank">
+                <div class="video-preview" onclick="playVideo(this, 'videos/video5.mp4')">
                     <img src="images/preview_video5.jpg" alt="Превью видео 5">
                     <div class="play-overlay">
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                </a>
+                </div>
             </div>
-            <!-- Пример видео 6 -->
+            <!-- Видео 6 -->
             <div class="video-item">
-                <a href="videos/video6.mp4" target="_blank">
+                <div class="video-preview" onclick="playVideo(this, 'videos/video6.mp4')">
                     <img src="images/preview_video6.jpg" alt="Превью видео 6">
                     <div class="play-overlay">
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
         <div class="portfolio-cta">
@@ -367,5 +351,51 @@
             <span>Назад</span>
         </a>
     </nav>
+
+    <script>
+    function playVideo(previewDiv, videoSrc) {
+        // Не даём открывать еще раз, если уже видео
+        if (previewDiv.classList.contains('playing')) return;
+        previewDiv.classList.add('playing');
+        // Скрываем превью
+        previewDiv.style.display = 'none';
+
+        // Создаем контейнер для видео
+        const parent = previewDiv.parentElement;
+        const videoContainer = document.createElement('div');
+        videoContainer.className = 'video-container';
+
+        // Само видео
+        const video = document.createElement('video');
+        video.src = videoSrc;
+        video.controls = true;
+        video.autoplay = true;
+        video.style.width = '100%';
+        video.style.height = '100%';
+
+        // Если хотите добавить кнопку закрытия видео:
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '×';
+        closeBtn.style.position = 'absolute';
+        closeBtn.style.top = '10px';
+        closeBtn.style.right = '15px';
+        closeBtn.style.background = 'rgba(0,0,0,0.6)';
+        closeBtn.style.color = '#fff';
+        closeBtn.style.border = 'none';
+        closeBtn.style.fontSize = '2rem';
+        closeBtn.style.cursor = 'pointer';
+        closeBtn.style.zIndex = '2';
+        closeBtn.onclick = function() {
+            video.pause();
+            parent.removeChild(videoContainer);
+            previewDiv.style.display = 'flex';
+            previewDiv.classList.remove('playing');
+        };
+
+        videoContainer.appendChild(closeBtn);
+        videoContainer.appendChild(video);
+        parent.appendChild(videoContainer);
+    }
+    </script>
 </body>
 </html>
