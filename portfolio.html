@@ -137,7 +137,7 @@
         .video-item::before {
             content: '';
             display: block;
-            padding-top: 177.77%; /* 9:16 */
+            padding-top: 177.77%;
         }
         .video-item img {
             position: absolute;
@@ -233,7 +233,6 @@
             font-size: 0.8rem;
             margin-top: 5px;
         }
-        /* Модальное окно с вертикальным видео 9:16 */
         .video-modal {
             display: none;
             position: fixed;
@@ -248,12 +247,12 @@
         }
         .video-modal-content {
             width: 90%;
-            max-width: 400px; /* Для вертикального видео */
+            max-width: 400px;
             position: relative;
         }
         .video-modal-container {
             width: 100%;
-            padding-top: 177.77%; /* 9:16 */
+            padding-top: 177.77%;
             position: relative;
         }
         .video-modal video {
@@ -315,49 +314,49 @@
     <div class="wave"></div>
     <div class="wave"></div>
 
-    
+
 
     <!-- Основной контент -->
     <div class="container">
         <h2 class="section-title">VIDEOS</h2>
         <div class="video-grid">
             <!-- Видео 1 -->
-            <div class="video-item" data-video="/videos/video1.mp4" data-poster="images/preview_video1.jpg">
+            <div class="video-item" data-video="videos/video1.mp4" data-poster="images/preview_video1.jpg">
                 <img src="images/preview_video1.jpg" alt="Превью видео 1">
                 <div class="play-overlay">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 </div>
             </div>
             <!-- Видео 2 -->
-            <div class="video-item" data-video="/videos/video2.mp4" data-poster="images/preview_video2.jpg">
+            <div class="video-item" data-video="videos/video2.mp4" data-poster="images/preview_video2.jpg">
                 <img src="images/preview_video2.jpg" alt="Превью видео 2">
                 <div class="play-overlay">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 </div>
             </div>
             <!-- Видео 3 -->
-            <div class="video-item" data-video="/videos/video3.mp4" data-poster="images/preview_video3.jpg">
+            <div class="video-item" data-video="videos/video3.mp4" data-poster="images/preview_video3.jpg">
                 <img src="images/preview_video3.jpg" alt="Превью видео 3">
                 <div class="play-overlay">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 </div>
             </div>
             <!-- Видео 4 -->
-            <div class="video-item" data-video="/videos/video4.mp4" data-poster="images/preview_video4.jpg">
+            <div class="video-item" data-video="videos/video4.mp4" data-poster="images/preview_video4.jpg">
                 <img src="images/preview_video4.jpg" alt="Превью видео 4">
                 <div class="play-overlay">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 </div>
             </div>
             <!-- Видео 5 -->
-            <div class="video-item" data-video="/videos/video5.mp4" data-poster="images/preview_video5.jpg">
+            <div class="video-item" data-video="videos/video5.mp4" data-poster="images/preview_video5.jpg">
                 <img src="images/preview_video5.jpg" alt="Превью видео 5">
                 <div class="play-overlay">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 </div>
             </div>
             <!-- Видео 6 -->
-            <div class="video-item" data-video="/videos/video6.mp4" data-poster="images/preview_video6.jpg">
+            <div class="video-item" data-video="videos/video6.mp4" data-poster="images/preview_video6.jpg">
                 <img src="images/preview_video6.jpg" alt="Превью видео 6">
                 <div class="play-overlay">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -374,7 +373,7 @@
         <div class="video-modal-content">
             <button class="close-video" id="closeVideo">×</button>
             <div class="video-modal-container">
-                <video controls autoplay muted playsinline id="modalVideo" poster="">
+                <video controls autoplay muted playsinline id="modalVideo">
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
@@ -399,19 +398,22 @@
 
     <script>
         // Открытие видео в модальном окне
-        document.querySelectorAll('.video-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const modal = document.getElementById('videoModal');
-                const video = document.getElementById('modalVideo');
-                video.src = item.dataset.video;
-                video.poster = item.dataset.poster; // Превью из атрибута
-                modal.style.display = 'flex';
-                // В некоторых браузерах нужно явно вызвать play()
-                video.load();
-                video.play().catch(e => {
-                    console.log('Автоплей заблокирован, требуется клик пользователя:', e);
-                });
+        function openVideo(item) {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            video.src = item.dataset.video;
+            video.poster = item.dataset.poster;
+            modal.style.display = 'flex';
+            video.load();
+            video.play().catch(e => {
+                console.log('Автоплей заблокирован, требуется клик пользователя:', e);
             });
+        }
+
+        // Назначаем обработчики для клика и тапа
+        document.querySelectorAll('.video-item').forEach(item => {
+            item.addEventListener('click', () => openVideo(item));
+            item.addEventListener('touchstart', () => openVideo(item));
         });
 
         // Закрытие модального окна
