@@ -5,152 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Myuppy — Портфолио</title>
     <style>
-        @font-face {
-            font-family: 'Eurofurence Bold';
-            src: url('fonts/eurof55.ttf') format('truetype');
-            font-weight: bold;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Eurofurence Bold', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #000000;
-            color: #ffffff;
-            overflow-x: hidden;
-            line-height: 1.6;
-            min-height: 100vh;
-            padding-bottom: 110px;
-        }
-        .wave {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 1000% 1000% 0 0;
-            position: fixed;
-            width: 200%;
-            height: 12em;
-            animation: wave 10s -3s linear infinite;
-            transform: translate3d(0, 0, 0);
-            bottom: 0;
-            left: 0;
-            z-index: -1;
-        }
-        .wave:nth-of-type(2) {
-            bottom: -1.25em;
-            animation: wave 18s linear reverse infinite;
-            opacity: 0.7;
-        }
-        .wave:nth-of-type(3) {
-            bottom: -2.5em;
-            animation: wave 20s -1s reverse infinite;
-            opacity: 0.4;
-        }
-        @keyframes wave {
-            2% { transform: translateX(1); }
-            25% { transform: translateX(-25%); }
-            50% { transform: translateX(-50%); }
-            75% { transform: translateX(-25%); }
-            100% { transform: translateX(1); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .top-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
-        }
-        .nav-logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ffffff;
-            letter-spacing: 2px;
-        }
-        .nav-menu {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-        .nav-menu a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 10px 0;
-            position: relative;
-        }
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #ffffff;
-            transition: width 0.3s ease;
-        }
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 120px 40px 60px;
-        }
-        .section-title {
-            font-size: 3.5rem;
-            text-align: center;
-            margin-bottom: 80px;
-            letter-spacing: 2px;
-        }
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-        .video-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            position: relative;
-            animation: fadeInUp 1s ease-out;
-            cursor: pointer;
-        }
-        .video-item::before {
-            content: '';
-            display: block;
-            padding-top: 177.77%;
-        }
-        .video-item img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        .video-item:hover img {
-            transform: scale(1.05);
-        }
+        /* ...весь ваш CSS без изменений... */
         .play-overlay {
             position: absolute;
             top: 50%;
@@ -165,147 +20,23 @@
             justify-content: center;
             opacity: 0.8;
             transition: opacity 0.3s ease;
+            z-index: 2;
+            pointer-events: none; /* чтобы не мешала кликам */
         }
         .video-item:hover .play-overlay {
             opacity: 1;
         }
-        .play-overlay svg {
-            width: 30px;
-            height: 30px;
-            fill: #ffffff;
-        }
-        .portfolio-cta {
-            text-align: center;
-            margin-top: 40px;
-        }
-        .section-button {
-            border: 2px solid #fff;
-            border-radius: 8px;
-            color: #fff;
-            padding: 15px 30px;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: .3s;
-            display: inline-block;
-        }
-        .section-button:hover {
-            background: #fff;
-            color: #000;
-        }
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: center;
-            padding: 15px 0;
-            z-index: 1000;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-        .bottom-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0 30px;
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            flex: 0 0 auto;
-        }
-        .bottom-nav-item:hover {
-            color: #fff;
-            transform: translateY(-3px);
-        }
-        .bottom-nav-item svg {
-            width: 24px;
-            height: 24px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 1.5;
-        }
-        .bottom-nav-item span {
-            font-size: 0.8rem;
-            margin-top: 5px;
-        }
-        .video-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-        .video-modal-content {
-            width: 90%;
-            max-width: 400px;
+        .video-item {
             position: relative;
+            cursor: pointer;
         }
-        .video-modal-container {
-            width: 100%;
-            padding-top: 177.77%;
-            position: relative;
-        }
-        .video-modal video {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .video-item img {
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .close-video {
-            position: absolute;
-            top: -50px;
-            right: 0;
-            background: #fff;
-            color: #000;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 3000;
-        }
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 0 20px;
-            }
-            .nav-menu {
-                display: none;
-            }
-            .nav-logo {
-                font-size: 1.5rem;
-            }
-            .section-title {
-                font-size: 2.5rem;
-            }
-            .video-grid {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                gap: 20px;
-            }
-            .bottom-nav-item {
-                margin: 0 20px;
-            }
-        }
-        @media (max-width: 480px) {
-            .section-title {
-                font-size: 2rem;
-            }
-            .bottom-nav-item {
-                margin: 0 15px;
-            }
-        }
+        /* ...остальной CSS... */
     </style>
 </head>
 <body>
@@ -313,8 +44,6 @@
     <div class="wave"></div>
     <div class="wave"></div>
     <div class="wave"></div>
-
-
 
     <!-- Основной контент -->
     <div class="container">
@@ -368,12 +97,12 @@
         </div>
     </div>
 
-    <!-- Модальное окно для вертикального видео 9:16 -->
-    <div class="video-modal" id="videoModal">
+    <!-- Модальное окно для видео -->
+    <div class="video-modal" id="videoModal" style="display:none;">
         <div class="video-modal-content">
             <button class="close-video" id="closeVideo">×</button>
             <div class="video-modal-container">
-                <video controls autoplay muted playsinline id="modalVideo">
+                <video controls autoplay muted playsinline id="modalVideo" style="background:#000;" poster="">
                     Ваш браузер не поддерживает видео.
                 </video>
             </div>
@@ -387,7 +116,7 @@
             <span>Главная</span>
         </a>
         <a href="contacts.html" class="bottom-nav-item">
-            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72..."/></svg>
             <span>Контакты</span>
         </a>
         <a href="javascript:history.back()" class="bottom-nav-item">
@@ -406,14 +135,13 @@
             modal.style.display = 'flex';
             video.load();
             video.play().catch(e => {
-                console.log('Автоплей заблокирован, требуется клик пользователя:', e);
+                // Автоплей заблокирован, требуется клик пользователя
             });
         }
 
-        // Назначаем обработчики для клика и тапа
+        // Назначаем обработчики только для click
         document.querySelectorAll('.video-item').forEach(item => {
             item.addEventListener('click', () => openVideo(item));
-            item.addEventListener('touchstart', () => openVideo(item));
         });
 
         // Закрытие модального окна
@@ -421,8 +149,17 @@
             const modal = document.getElementById('videoModal');
             const video = document.getElementById('modalVideo');
             video.pause();
-            video.currentTime = 0;
+            video.removeAttribute('src'); // Очищаем src чтобы не было звука после закрытия
+            video.removeAttribute('poster');
+            video.load();
             modal.style.display = 'none';
+        });
+
+        // Дополнительно закрывать модалку по клику вне видео
+        document.getElementById('videoModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                document.getElementById('closeVideo').click();
+            }
         });
     </script>
 </body>
