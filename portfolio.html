@@ -13,7 +13,7 @@
         @keyframes wave { 2% { transform: translateX(1); } 25% { transform: translateX(-25%); } 50% { transform: translateX(-50%); } 75% { transform: translateX(-25%); } 100% { transform: translateX(1); } }
         .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px 40px; }
         .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 40px; }
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; margin-bottom: 40px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Уменьшены превью */ gap: 24px; margin-bottom: 40px; }
         .video-item { position: relative; cursor: pointer; overflow: hidden; border-radius: 8px; background: #111; }
         .video-item::before { content: ''; display: block; padding-top: 177.78%; }
         .video-item img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
@@ -56,13 +56,14 @@
     <div class="container">
         <h2 class="section-title">VIDEOS</h2>
         <div class="video-grid">
-            <!-- ВНИМАНИЕ: Укажите правильные пути к вашим видео и картинкам-заставкам -->
-            <div class="video-item" data-video="/videos/video1.mp4" data-poster="/images/poster1.jpg"><img src="/images/poster1.jpg" alt="Превью видео 1"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            <div class="video-item" data-video="/videos/video2.mp4" data-poster="/images/poster2.jpg"><img src="/images/poster2.jpg" alt="Превью видео 2"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            <div class="video-item" data-video="/videos/video3.mp4" data-poster="/images/poster3.jpg"><img src="/images/poster3.jpg" alt="Превью видео 3"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            <div class="video-item" data-video="/videos/video4.mp4" data-poster="/images/poster4.jpg"><img src="/images/poster4.jpg" alt="Превью видео 4"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            <div class="video-item" data-video="/videos/video5.mp4" data-poster="/images/poster5.jpg"><img src="/images/poster5.jpg" alt="Превью видео 5"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            <div class="video-item" data-video="/videos/video6.mp4" data-poster="/images/poster6.jpg"><img src="/images/poster6.jpg" alt="Превью видео 6"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <!-- ВНИМАНИЕ: Укажите правильные ОТНОСИТЕЛЬНЫЕ пути к вашим видео и картинкам-заставкам -->
+            <!-- Файлы видео находятся в папке 'videos', картинки-заставки в 'images' (нужно создать) -->
+            <div class="video-item" data-video="videos/video1.mp4" data-poster="images/poster1.jpg"><img src="images/poster1.jpg" alt="Превью видео 1"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="video-item" data-video="videos/video2.mp4" data-poster="images/poster2.jpg"><img src="images/poster2.jpg" alt="Превью видео 2"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="video-item" data-video="videos/video3.mp4" data-poster="images/poster3.jpg"><img src="images/poster3.jpg" alt="Превью видео 3"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="video-item" data-video="videos/video4.mp4" data-poster="images/poster4.jpg"><img src="images/poster4.jpg" alt="Превью видео 4"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="video-item" data-video="videos/video5.mp4" data-poster="images/poster5.jpg"><img src="images/poster5.jpg" alt="Превью видео 5"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="video-item" data-video="videos/video6.mp4" data-poster="images/poster6.jpg"><img src="images/poster6.jpg" alt="Превью видео 6"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
         </div>
         <div class="portfolio-cta">
             <a href="https://t.me/your_telegram_channel" target="_blank" class="section-button">Больше примеров в Telegram</a>
@@ -91,42 +92,35 @@
             const videoPlayer = document.getElementById('modalVideo');
             
             function openVideo(item) {
-                // Берем пути из data-атрибутов
                 const videoSrc = item.dataset.video;
                 const posterSrc = item.dataset.poster;
 
                 if (!videoSrc) {
-                    console.error("Video source not found!");
+                    console.error("Video source not found for:", item);
                     return;
                 }
 
-                // Устанавливаем атрибуты плееру
                 videoPlayer.src = videoSrc;
-                videoPlayer.poster = posterSrc || ''; // Если постера нет, ставим пустую строку
+                videoPlayer.poster = posterSrc || ''; 
                 
-                // Показываем модальное окно, добавляя класс
                 modal.classList.add('active');
                 
-                // Загружаем видео и ждем, пока оно будет готово к воспроизведению
-                videoPlayer.load();
+                videoPlayer.load(); 
                 videoPlayer.oncanplay = () => {
                     videoPlayer.play().catch(e => {
                         console.warn("Autoplay was blocked by the browser.", e);
-                        // Если автовоспроизведение заблокировано, пользователь сможет запустить видео сам, так как есть `controls`.
                     });
                 };
             }
             
             function closeModal() {
-                // Скрываем модальное окно, удаляя класс
                 modal.classList.remove('active');
 
-                // Полностью останавливаем и сбрасываем плеер
                 videoPlayer.pause();
-                videoPlayer.removeAttribute('src'); // Удаляем источник
+                videoPlayer.removeAttribute('src'); 
                 videoPlayer.removeAttribute('poster');
-                videoPlayer.load(); // Перезагружаем элемент, чтобы сбросить буфер
-                videoPlayer.oncanplay = null; // Очищаем обработчик
+                videoPlayer.load(); 
+                videoPlayer.oncanplay = null; 
             }
 
             document.querySelectorAll('.video-item').forEach(item => {
