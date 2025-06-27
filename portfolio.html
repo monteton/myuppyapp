@@ -13,7 +13,8 @@
         @keyframes wave { 2% { transform: translateX(1); } 25% { transform: translateX(-25%); } 50% { transform: translateX(-50%); } 75% { transform: translateX(-25%); } 100% { transform: translateX(1); } }
         .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px 40px; }
         .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 40px; }
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Уменьшены превью */ gap: 24px; margin-bottom: 40px; }
+        /* ИЗМЕНЕНО: Минимальная ширина превью уменьшена до 180px */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; margin-bottom: 40px; }
         .video-item { position: relative; cursor: pointer; overflow: hidden; border-radius: 8px; background: #111; }
         .video-item::before { content: ''; display: block; padding-top: 177.78%; }
         .video-item img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
@@ -31,6 +32,7 @@
         .bottom-nav-item span { font-size: 0.8rem; margin-top: 4px; }
         .video-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2000; justify-content: center; align-items: center; }
         .video-modal-backdrop { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 2001; }
+        /* ИЗМЕНЕНО: Размер окна видеоплеера установлен в 340px */
         .video-modal-content { position: relative; width: 90%; max-width: 340px; z-index: 2002; border-radius: 12px; overflow: hidden; background: #000; }
         .video-modal-container { width: 100%; padding-top: 177.78%; position: relative; }
         .video-modal video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
@@ -45,82 +47,60 @@
     <div class="container">
         <h2 class="section-title">VIDEOS</h2>
         <div class="video-grid">
-            <div class="video-item" data-video="/videos/video1.mp4"><img src="" alt=""><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            <div class="video-item" data-video="/videos/video2.mp4"><img src="" alt=""><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            <div class="video-item" data-video="/videos/video3.mp4"><img src="" alt=""><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            <div class="video-item" data-video="/videos/video4.mp4"><img src="" alt=""><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            <div class="video-item" data-video="/videos/video5.mp4"><img src="" alt=""><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
-            <div class="video-item" data-video="/videos/video6.mp4"><img src="" alt=""><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <!-- ИЗМЕНЕНО: Добавьте путь к вашим видео и заставкам (poster) -->
+            <div class="video-item" data-video="/videos/video1.mp4" data-poster="/images/poster1.jpg"><img src="/images/poster1.jpg" alt="Превью видео 1"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="video-item" data-video="/videos/video2.mp4" data-poster="/images/poster2.jpg"><img src="/images/poster2.jpg" alt="Превью видео 2"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="video-item" data-video="/videos/video3.mp4" data-poster="/images/poster3.jpg"><img src="/images/poster3.jpg" alt="Превью видео 3"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="video-item" data-video="/videos/video4.mp4" data-poster="/images/poster4.jpg"><img src="/images/poster4.jpg" alt="Превью видео 4"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="video-item" data-video="/videos/video5.mp4" data-poster="/images/poster5.jpg"><img src="/images/poster5.jpg" alt="Превью видео 5"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <div class="video-item" data-video="/videos/video6.mp4" data-poster="/images/poster6.jpg"><img src="/images/poster6.jpg" alt="Превью видео 6"><div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
         </div>
-        <div class="portfolio-cta"> <a href="https://t.me/your_telegram_channel" target="_blank" class="section-button">Больше примеров в Telegram</a> </div>
+        <div class="portfolio-cta">
+            <a href="https://t.me/your_telegram_channel" target="_blank" class="section-button">Больше примеров в Telegram</a>
+        </div>
     </div>
+
     <div class="video-modal" id="videoModal">
         <div class="video-modal-backdrop" id="modalBackdrop"></div>
         <div class="video-modal-content">
             <button class="close-video" id="closeVideo">×</button>
-            <div class="video-modal-container"> <video controls autoplay muted playsinline id="modalVideo" poster=""></video> </div>
+            <div class="video-modal-container">
+                <video controls muted playsinline id="modalVideo"></video>
+            </div>
         </div>
     </div>
+
     <nav class="bottom-nav">
         <a href="main.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>Главная</span></a>
         <a href="contacts.html" class="bottom-nav-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Контакты</span></a>
         <a href="javascript:history.back()" class="bottom-nav-item"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Назад</span></a>
     </nav>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Конфигурация для случайных превью (нужно заранее сгенерировать картинки)
-            const previewConfig = {
-                video1: { count: 5 }, // Например, video1_1.jpg, video1_2.jpg и т.д.
-                video2: { count: 5 },
-                video3: { count: 5 },
-                video4: { count: 5 },
-                video5: { count: 5 },
-                video6: { count: 5 }
-            };
-
-            // Функция для установки случайного превью из заранее подготовленных картинок
-            function setRandomPreviews() {
-                document.querySelectorAll('.video-item').forEach(item => {
-                    const videoName = item.dataset.video.split('/').pop().split('.')[0];
-                    const config = previewConfig[videoName];
-                    if (config) {
-                        const randomIndex = Math.floor(Math.random() * config.count) + 1;
-                        const previewPath = `/images/previews/${videoName}_${randomIndex}.jpg`; // Путь к вашей картинке-превью
-                        const img = item.querySelector('img');
-                        img.src = previewPath;
-                        item.dataset.poster = previewPath; // Сохраняем путь для модального окна
-                    }
-                });
-            }
-
-            // Функция открытия модального окна с видео
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('modalVideo');
+            
             function openVideo(item) {
-                const modal = document.getElementById('videoModal');
-                const videoPlayer = document.getElementById('modalVideo');
                 videoPlayer.src = item.dataset.video;
-                videoPlayer.poster = item.dataset.poster || ''; // Используем превью
+                videoPlayer.poster = item.dataset.poster; // Установка заставки
                 modal.style.display = 'flex';
+                videoPlayer.load();
                 videoPlayer.play().catch(e => console.error("Autoplay failed:", e));
             }
             
-            // Функция закрытия модального окна
             function closeModal() {
-                const modal = document.getElementById('videoModal');
-                const videoPlayer = document.getElementById('modalVideo');
-                videoPlayer.pause(); // Останавливаем видео
+                videoPlayer.pause();
+                videoPlayer.removeAttribute('src'); // Очистка, чтобы остановить воспроизведение/загрузку
+                videoPlayer.removeAttribute('poster');
+                videoPlayer.load(); // Перезагрузка плеера для полного сброса
                 modal.style.display = 'none';
             }
 
-            // Инициализация превью при загрузке страницы
-            setRandomPreviews();
-
-            // Обработчики событий для открытия видео
             document.querySelectorAll('.video-item').forEach(item => {
-                // Используем только 'click' для открытия видео
                 item.addEventListener('click', () => openVideo(item));
             });
 
-            // Обработчики событий для закрытия видео
             document.getElementById('closeVideo').addEventListener('click', closeModal);
             document.getElementById('modalBackdrop').addEventListener('click', closeModal);
         });
